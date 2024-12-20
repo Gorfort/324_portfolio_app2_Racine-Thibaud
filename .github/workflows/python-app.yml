@@ -15,6 +15,10 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: List directory contents
+      run: |
+        ls -R
+
     - name: Cache pip dependencies
       uses: actions/cache@v3
       with:
@@ -22,10 +26,6 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/Flask-Login-System/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
-    - name: List directory contents
-      run: |
-        ls -R
 
     - name: Install dependencies
       run: |
