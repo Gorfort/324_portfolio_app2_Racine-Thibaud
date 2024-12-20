@@ -18,6 +18,9 @@ jobs:
         pip install --upgrade pip
         pip install pytest
         pip install -r requirements.txt
+    - name:  Debug file structure (current directory)
+      run: |
+        ls -R
     - name: Run tests
       run: |
         python -m pytest Flask-Login-System/src/tests
