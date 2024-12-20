@@ -19,5 +19,4 @@ jobs:
         pip install -r Flask-Login-System/requirements.txt
     - name: Run tests
       run: |
-        cd Flask-Login-System/src
-        python -m pytest tests
+        python -m pytest Flask-Login-System/src/tests
