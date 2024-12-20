@@ -24,7 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest
-        pip install -r src/requirements.txt
+        pip install -r requirements.txt  # Update this line if requirements.txt is in the root directory
 
     - name: Run tests
       run: |
