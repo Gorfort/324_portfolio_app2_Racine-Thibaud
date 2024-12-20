@@ -18,7 +18,9 @@ jobs:
         pip install --upgrade pip
         pip install pytest
         pip install -r requirements.txt
+    - name: List files for debugging
+      run: |
+        ls -R
     - name: Run tests
       run: |
         python -m pytest src/tests
-
