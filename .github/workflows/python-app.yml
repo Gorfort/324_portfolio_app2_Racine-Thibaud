@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +34,10 @@ jobs:
         tar -xzf geckodriver-v0.30.0-linux64.tar.gz
         sudo mv geckodriver /usr/local/bin/
 
-    - name: Run tests
+    - name: Run unit tests (test_app.py)
       run: |
-        python -m pytest Flask-Login-System/src/tests
+        python -m pytest Flask-Login-System/src/tests/test_app.py
+
+    - name: Run end-to-end tests (test_e2e.py)
+      run: |
+        python -m pytest Flask-Login-System/src/tests/test_e2e.py
