@@ -23,6 +23,6 @@ jobs:
         ls -R
     - name: Run tests
       run: |
-        python -m pytest Flask-Login-System/src/tests
+        python -m pytest src/tests
 
 
