@@ -19,7 +19,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install pytest
-        pip install -r Flask-Login-System/requirements.txt
+        pip install -r src/requirements.txt
 
     - name: Install Firefox
       run: |
@@ -38,4 +38,4 @@ jobs:
 
     - name: Run tests
       run: |
-        python -m pytest Flask-Login-System/src/tests
+        python -m pytest src/tests
