@@ -9,18 +9,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Debug file structure
+      run: |
+        ls -R
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.12'
     - name: Install dependencies
       run: |
+        cd Flask-Login-System
         pip install --upgrade pip
         pip install pytest
         pip install -r requirements.txt
-    - name: List files for debugging
-      run: |
-        ls -R
     - name: Run tests
       run: |
+        cd Flask-Login-System
         python -m pytest src/tests
