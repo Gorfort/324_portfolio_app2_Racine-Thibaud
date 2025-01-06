@@ -12,7 +12,7 @@ import platform
 def driver():
     # Setup Firefox WebDriver with automatic Firefox binary location detection
     options = FirefoxOptions()
-    
+    options.headless = True  
     # No need to manually specify the Firefox binary location, it should be found automatically
     if platform.system() == "Windows":
         # Optional: You can specify the path here if it's not in the default location
