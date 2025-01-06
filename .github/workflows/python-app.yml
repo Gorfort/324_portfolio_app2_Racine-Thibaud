@@ -7,37 +7,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.12'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.12"
 
-    - name: List directory contents
-      run: |
-        ls -R
+      - name: List directory contents
+        run: |
+          ls -R
 
-    - name: Install dependencies
-      run: |
-        pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Install Firefox
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y firefox
+      - name: Install Firefox
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y firefox
 
-    - name: Install Geckodriver
-      run: |
-        wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
-        tar -xzf geckodriver-v0.30.0-linux64.tar.gz
-        sudo mv geckodriver /usr/local/bin/
+      - name: Install Geckodriver
+        run: |
+          wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
+          tar -xzf geckodriver-v0.30.0-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
 
-    - name: Run unit tests (test_app.py)
-      run: |
-        python -m pytest src/tests/test_app.py
+      - name: Run unit tests (test_app.py)
+        run: |
+          python -m pytest src/tests/test_app.py
 
-    - name: Run end-to-end tests (test_e2e.py)
-      run: |
-        python -m pytest src/tests/test_e2e.py
+      - name: Start application
+        run: |
+          nohup python /src/app.py &
+          sleep 10
+
+      - name: Run end-to-end tests (test_e2e.py)
+        run: |
+          python -m pytest src/tests/test_e2e.py

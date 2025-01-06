@@ -4,15 +4,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 
-import pytest
 import platform
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from webdriver_manager.firefox import GeckoDriverManager
 
 @pytest.fixture(scope="module")
 def driver():
@@ -31,7 +27,6 @@ def driver():
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
-
 
 def test_register(driver):
     driver.get("http://localhost:5000/register")
@@ -59,8 +54,9 @@ def test_login(driver):
     driver.get("http://localhost:5000/login")
     
     # Fill out the login form
-    driver.find_element(By.NAME, "username").send_keys("newuser")
-    driver.find_element(By.NAME, "password").send_keys("newpassword")
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "user-username")))
+    driver.find_element(By.ID, "user-username").send_keys("newuser")
+    driver.find_element(By.ID, "user-password").send_keys("newpassword")
     driver.find_element(By.ID, "form-submit").click()
     
     # Check if redirected to the home page
@@ -70,6 +66,7 @@ def test_logout(driver):
     driver.get("http://localhost:5000/")
     
     # Click the logout link
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, "Logout")))
     driver.find_element(By.LINK_TEXT, "Logout").click()
     
     # Check if redirected to the login page
