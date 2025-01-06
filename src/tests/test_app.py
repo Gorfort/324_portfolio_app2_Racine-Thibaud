@@ -76,7 +76,7 @@ def test_register_success(client):
 
 def test_login_incorrect_password(client):
     response = client.post('/login', data={
-        'username': 'gogo',  # Use a valid username
+        'username': 'newuser',  # Use a valid username
         'password': 'wrongpassword'
     })
     print(response.data)  # Debugging line
