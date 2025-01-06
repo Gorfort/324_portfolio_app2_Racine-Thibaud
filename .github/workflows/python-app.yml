@@ -40,7 +40,7 @@ jobs:
 
       - name: Start application
         run: |
-          nohup python /src/app.py &
+          nohup python src/app.py &
           sleep 10
 
       - name: Run end-to-end tests (test_e2e.py)
