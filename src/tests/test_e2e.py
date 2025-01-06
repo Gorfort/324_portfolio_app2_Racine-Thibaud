@@ -6,16 +6,31 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from webdriver_manager.firefox import GeckoDriverManager
 
+import pytest
+import platform
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from webdriver_manager.firefox import GeckoDriverManager
+
 @pytest.fixture(scope="module")
 def driver():
-    # Setup Firefox WebDriver with specified binary location
+    # Setup Firefox WebDriver with OS-specific binary location
     options = FirefoxOptions()
-    options.binary_location = r"C:\Users\po44oov\AppData\Local\Mozilla Firefox\firefox.exe"  # Update this path if necessary
+    if platform.system() == "Windows":
+        options.binary_location = r"C:\Users\po44oov\AppData\Local\Mozilla Firefox\firefox.exe"  # Adjust if necessary
+    elif platform.system() == "Darwin":  # macOS
+        options.binary_location = "/Applications/Firefox.app/Contents/MacOS/firefox"
+    elif platform.system() == "Linux":
+        options.binary_location = "/usr/bin/firefox"  # Adjust for Linux if necessary
+    
     service = FirefoxService(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service, options=options)
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
+
 
 def test_register(driver):
     driver.get("http://localhost:5000/register")
