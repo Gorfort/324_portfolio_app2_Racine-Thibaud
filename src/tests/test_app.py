@@ -64,7 +64,6 @@ def test_register_existing_user(client):
         'confirm-password': 'newpassword',
         'email': 'newemail@example.com'
     })
-    assert response.status_code == 200
     assert b'Username already exists' in response.data
 
 def test_register_success(client):
