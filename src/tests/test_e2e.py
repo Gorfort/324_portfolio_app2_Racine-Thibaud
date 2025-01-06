@@ -18,6 +18,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 def driver():
     # Setup Firefox WebDriver with OS-specific binary location
     options = FirefoxOptions()
+    options.headless = True
     if platform.system() == "Windows":
         options.binary_location = r"C:\Users\po44oov\AppData\Local\Mozilla Firefox\firefox.exe"  # Adjust if necessary
     elif platform.system() == "Darwin":  # macOS
