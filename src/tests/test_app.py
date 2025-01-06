@@ -27,15 +27,6 @@ def test_login_incorrect_username(client):
     assert response.status_code == 200
     assert b'Username does not exist' in response.data
 
-def test_login_incorrect_password(client):
-    response = client.post('/login', data={
-        'username': 'gogo',  # Use a valid username
-        'password': 'wrongpassword'
-    })
-    print(response.data)  # Debugging line
-    assert response.status_code == 200
-    assert b'Incorrect password' in response.data
-
 def test_login_success(client):
     response = client.post('/login', data={
         'username': 'gogo',  # Use a valid username
@@ -91,3 +82,13 @@ def test_register_success(client):
     assert response.status_code in [200, 302]  # Accept 200 for form errors, 302 for redirects
     if response.status_code == 302:
         assert response.headers['Location'] == '/'  # Check for the redirect location
+
+
+def test_login_incorrect_password(client):
+    response = client.post('/login', data={
+        'username': 'gogo',  # Use a valid username
+        'password': 'wrongpassword'
+    })
+    print(response.data)  # Debugging line
+    assert response.status_code == 200
+    assert b'Incorrect password' in response.data
