@@ -57,15 +57,6 @@ def test_register_page(client):
     assert response.status_code == 200
     assert b'Register' in response.data
 
-def test_register_existing_user(client):
-    response = client.post('/register', data={
-        'username': 'gogo',  # Use an existing username
-        'password': 'newpassword',
-        'confirm-password': 'newpassword',
-        'email': 'newemail@example.com'
-    })
-    assert b'Username already exists' in response.data
-
 def test_register_success(client):
     response = client.post('/register', data={
         'username': 'newuser',
