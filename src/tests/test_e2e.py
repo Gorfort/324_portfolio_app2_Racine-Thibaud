@@ -1,26 +1,30 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
-
 import platform
 
 @pytest.fixture(scope="module")
 def driver():
-    # Setup Firefox WebDriver with OS-specific binary location
+    # Setup Firefox WebDriver with automatic Firefox binary location detection
     options = FirefoxOptions()
-    if platform.system() == "Windows":
-        options.binary_location = r"C:\Users\po44oov\AppData\Local\Mozilla Firefox\firefox.exe"  # Adjust if necessary
-    elif platform.system() == "Darwin":  # macOS
-        options.binary_location = "/Applications/Firefox.app/Contents/MacOS/firefox"
-    elif platform.system() == "Linux":
-        options.binary_location = "/usr/bin/firefox"  # Adjust for Linux if necessary
     
+    # No need to manually specify the Firefox binary location, it should be found automatically
+    if platform.system() == "Windows":
+        # Optional: You can specify the path here if it's not in the default location
+        pass
+    elif platform.system() == "Darwin":  # macOS
+        # Firefox should be automatically found on macOS without setting the binary location
+        pass
+    elif platform.system() == "Linux":
+        # Firefox should be automatically found on Linux without setting the binary location
+        pass
+    
+    # Using GeckoDriverManager to automatically manage Firefox and GeckoDriver binaries
     service = FirefoxService(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service, options=options)
     driver.implicitly_wait(10)
